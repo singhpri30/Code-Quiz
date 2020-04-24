@@ -39,7 +39,7 @@ var startQuizButton = document.querySelector("#start-quiz");
 var mainDivElement = document.querySelector("#main-div");
 var quizDivElement = document.querySelector("#quiz-div");
 var timerEl = document.querySelector("#timer");
-var uiElement = document.createElement("ui");
+var olElement = document.createElement("ol");
 
 
 var timeLeft = questions.length * 15;
@@ -72,7 +72,7 @@ function startTime() {
 function renderQuestions() {
 
     quizDivElement.innerHTML = "";
-    uiElement.innerHTML = "";
+    olElement.innerHTML = "";
     //hide the mainDiv element
     mainDivElement.classList.add("d-none");
     //display the quizDiv element
@@ -91,8 +91,8 @@ function renderQuestions() {
 
         var liElement = document.createElement("li");
         liElement.textContent = choices;
-        quizDivElement.appendChild(uiElement);
-        uiElement.appendChild(liElement);
+        quizDivElement.appendChild(olElement);
+        olElement.appendChild(liElement);
 
         liElement.addEventListener("click", findCorrectAnswer);
 
@@ -106,6 +106,7 @@ function findCorrectAnswer(event) {
     if (liclicked.matches("li")) {
 
         var answerDivEl = document.createElement("div");
+        answerDivEl.classList.add("border-top", "mt-2", "text-muted", "border-dark");
 
         // correct answer
         if (liclicked.textContent == questions[currentQuestionIndex].correct) {
@@ -142,20 +143,22 @@ function quizOver() {
 
     // Heading:
     var headingEl = document.createElement("h1");
-    headingEl.setAttribute("id", "heading");
+    headingEl.classList.add("text-center", "mt-2");
     headingEl.textContent = "Quiz is Over!"
 
     quizDivElement.appendChild(headingEl);
 
     // Paragraph
     var paragraphEl = document.createElement("p");
-    paragraphEl.setAttribute("id", "para1");
+    //paragraphEl.setAttribute("id", "para1");
+
 
     quizDivElement.appendChild(paragraphEl);
 
     // Calculates time remaining and replaces it with score
     if (timeLeft >= 0) {
         var timeRemaining = timeLeft;
+        var paragraphEl2 = document.createElement("p");
         clearInterval(timeInterval);
         paragraphEl.textContent = "Your final score is: " + timeRemaining;
 
@@ -172,7 +175,8 @@ function quizOver() {
     // input
     var inputEl = document.createElement("input");
     inputEl.setAttribute("type", "text");
-    inputEl.setAttribute("id", "inputEl");
+    //inputEl.setAttribute("id", "inputEl");
+    inputEl.classList.add("ml-3");
     inputEl.textContent = "";
 
     quizDivElement.appendChild(inputEl);
@@ -180,30 +184,18 @@ function quizOver() {
     // submit
     var submitBtnEl = document.createElement("button");
     submitBtnEl.setAttribute("type", "submit");
-    submitBtnEl.setAttribute("id", "SubmitBtn");
+    submitBtnEl.classList.add("d-block", "btn", "btn-dark", "btn-lg", "mt-3");
     submitBtnEl.textContent = "Submit";
 
     quizDivElement.appendChild(submitBtnEl);
 };
 
+submitBtnEl.addEventListener("click", function () {
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//startQuizButton.addEventListener("click", renderQuestions);
+})
 
 
 
