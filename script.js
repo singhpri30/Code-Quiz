@@ -1,10 +1,3 @@
-var startQuizButton = document.querySelector("#startQuiz");
-var mainDivElement = document.querySelector("#mainDiv");
-var quizDivElement = document.querySelector("#quizDiv");
-
-//console.log(mainDivElement);
-
-
 // quiz question stored in an array
 var questions = [
     {
@@ -24,121 +17,174 @@ var questions = [
         correct: "style"
     },
     {
-        title: "Arrays in Javascript can be used to store ____.",
-        choice: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        question: "Arrays in Javascript can be used to store ____.",
+        choice: ["numbers and strings", "booleans", "all of the above"],
         correct: "all of the above"
     },
     {
-        title: "The condition in an if / else statement is enclosed within ____.",
-        choice: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        question: "The condition in an if / else statement is enclosed within ____.",
+        choice: ["curly brackets", "parentheses", "square brackets"],
         correct: "parentheses"
     },
     {
-        title: "A very useful tool for used during development and debugging for printing content to the debugger is:",
-        choice: ["Javascript", "terminal / bash", "for loops", "console log"],
+        question: "A very useful tool for used during development and debugging for printing content to the debugger is:",
+        choice: ["terminal / bash", "for loops", "console log"],
         correct: "console log"
     }
 ]
 
 
-
-
+//storing HTML elements in the variables
+var startQuizButton = document.querySelector("#start-quiz");
+var mainDivElement = document.querySelector("#main-div");
+var quizDivElement = document.querySelector("#quiz-div");
 var timerEl = document.querySelector("#timer");
-var timeLeft = 90;
-var timePenalty = 5;
-function startTime() {
-
-    var timeInterval = setInterval(function () {
-        timerEl.textContent = timeLeft;
-        timeLeft--;
+var uiElement = document.createElement("ui");
 
 
-        if (timeLeft === 0) {
-            timerEl.textContent = "Time is over";
-            sendMessage();
-            clearInterval(timeInterval);
-        }
-
-    }, 1000);
-}
-function sendMessage() {
-    timerEl.textContent = " ";
-
-    alert("time over");
-
-}
-
-
-
-//variable
+var timeLeft = questions.length * 15;
+var timePenalty = 15;
+var timeInterval;
 var score = 0;
 var currentQuestionIndex = 0;
 
 
+//event will trigger on start quiz button click and call render question and startTime functions
+startQuizButton.addEventListener("click", startTime);
+function startTime() {
+
+    timeInterval = setInterval(function () {
+
+        timerEl.textContent = timeLeft;
+        timeLeft--;
+
+        if (timeLeft <= 0) {
+            timerEl.textContent = "Time's up";
+            clearInterval(timeInterval);
+            quizOver();
+        }
+
+    }, 1000);
+    renderQuestions();
+}
+
 //renders questions and choices
 function renderQuestions() {
 
-
-
+    quizDivElement.innerHTML = "";
+    uiElement.innerHTML = "";
     //hide the mainDiv element
     mainDivElement.classList.add("d-none");
     //display the quizDiv element
     quizDivElement.classList.remove("d-none");
-    var quizQuestionElement = document.createElement("p");
-    quizDivElement.appendChild(quizQuestionElement);
 
-    // For loops to loop through the questions
-    for (var i = 0; i < questions.length; i++) {
 
-        var userQuestion = questions[currentQuestionIndex].question;
-        var userChoice = questions[currentQuestionIndex].choice;
-        quizQuestionElement.textContent = userQuestion;
+    // loops through the questions
+    var userQuestion = questions[currentQuestionIndex].question;
+    var userChoice = questions[currentQuestionIndex].choice;
+    quizDivElement.textContent = "Question:" + " " + userQuestion;
 
-    }
+
 
     //loop over all the question choices
     userChoice.forEach(function (choices) {
 
-        var uiElement = document.createElement("ui");
         var liElement = document.createElement("li");
+        liElement.textContent = choices;
         quizDivElement.appendChild(uiElement);
         uiElement.appendChild(liElement);
-        liElement.textContent = choices;
 
         liElement.addEventListener("click", findCorrectAnswer);
 
-    })
+    });
 }
 
 function findCorrectAnswer(event) {
 
     var liclicked = event.target;
-    console.log(liclicked);
 
     if (liclicked.matches("li")) {
 
         var answerDivEl = document.createElement("div");
 
-        quizDivElement.appendChild(answerDivEl);
-
-        // Correct condition 
+        // correct answer
         if (liclicked.textContent == questions[currentQuestionIndex].correct) {
+
             score++;
-            console.log(score);
-            answerDivEl.textContent = "Correct! The answer is:  " + questions[currentQuestionIndex].correct;
-            // Correct condition 
+            answerDivEl.textContent = "Correct!";
+
         } else {
-            // -5 seconds will be deducted from timeLeft for wrong answers
+            // -15 seconds will be deducted from timeLeft for wrong answers
             timeLeft = timeLeft - timePenalty;
-            answerDivEl.textContent = "Wrong! The correct answer is:  " + questions[currentQuestionIndex].correct;
+            answerDivEl.textContent = "Wrong!";
         }
 
-
     };
+    currentQuestionIndex++;
+
+    if (currentQuestionIndex >= questions.length) {
+        // All done will append last page with user stats
+        quizOver();
+
+    } else {
+        renderQuestions();
+    }
+    quizDivElement.appendChild(answerDivEl);
+    setTimeout(function () {
+        answerDivEl.classList.add("d-none");
+    }, 1000);
 
 }
-currentQuestionIndex++;
-console.log(currentQuestionIndex);
+
+function quizOver() {
+    quizDivElement.innerHTML = "";
+    timerEl.innerHTML = 0;
+
+    // Heading:
+    var headingEl = document.createElement("h1");
+    headingEl.setAttribute("id", "heading");
+    headingEl.textContent = "Quiz is Over!"
+
+    quizDivElement.appendChild(headingEl);
+
+    // Paragraph
+    var paragraphEl = document.createElement("p");
+    paragraphEl.setAttribute("id", "para1");
+
+    quizDivElement.appendChild(paragraphEl);
+
+    // Calculates time remaining and replaces it with score
+    if (timeLeft >= 0) {
+        var timeRemaining = timeLeft;
+        clearInterval(timeInterval);
+        paragraphEl.textContent = "Your final score is: " + timeRemaining;
+
+        quizDivElement.appendChild(paragraphEl2);
+    }
+
+    // Label
+    var labelEl = document.createElement("label");
+    labelEl.setAttribute("id", "labelEl");
+    labelEl.textContent = "Enter your initials: ";
+
+    quizDivElement.appendChild(labelEl);
+
+    // input
+    var inputEl = document.createElement("input");
+    inputEl.setAttribute("type", "text");
+    inputEl.setAttribute("id", "inputEl");
+    inputEl.textContent = "";
+
+    quizDivElement.appendChild(inputEl);
+
+    // submit
+    var submitBtnEl = document.createElement("button");
+    submitBtnEl.setAttribute("type", "submit");
+    submitBtnEl.setAttribute("id", "SubmitBtn");
+    submitBtnEl.textContent = "Submit";
+
+    quizDivElement.appendChild(submitBtnEl);
+};
 
 
 
@@ -156,9 +202,9 @@ console.log(currentQuestionIndex);
 
 
 
-//event will trigger on start quiz button click and call render question and startTime functions
-startQuizButton.addEventListener("click", renderQuestions);
-startQuizButton.addEventListener("click", startTime);
+
+//startQuizButton.addEventListener("click", renderQuestions);
+
 
 
 

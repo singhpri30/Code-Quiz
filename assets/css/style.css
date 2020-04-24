@@ -1,0 +1,20 @@
+body{
+    background-color: rgb(209, 209, 209);
+}
+
+#timer-div{
+    position: relative;
+    margin-top: 10px;
+}
+#timer{
+    position: absolute;
+    right: 10px;
+    top:0;
+    color: brown;
+}
+
+#high-score{
+    font-size: 20px;
+    color: blue;
+        
+}
