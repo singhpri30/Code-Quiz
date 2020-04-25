@@ -177,7 +177,7 @@ function quizOver() {
     inputEl.setAttribute("type", "text");
     //inputEl.setAttribute("id", "inputEl");
     inputEl.classList.add("ml-3");
-    inputEl.textContent = "";
+
 
     quizDivElement.appendChild(inputEl);
 
@@ -188,14 +188,48 @@ function quizOver() {
     submitBtnEl.textContent = "Submit";
 
     quizDivElement.appendChild(submitBtnEl);
+    submitBtnEl.addEventListener("click", function () {
+        var inputValue = inputEl.value;
+
+        if (inputValue === "") {
+            alert("enter your initials");
+        }
+        //create an object to store initials and scores
+        var highScore = {
+            score: timeRemaining,
+            initials: inputValue
+
+        }
+
+
+        var highscore = localStorage.getItem("highscore");//getting a string form local storage
+        console.log(highScore);
+
+
+        if (highscore !== null) {
+            highscore1 = JSON.parse(highscore);//convert srting into a object
+            console.log("tt" + "   " + highscore1);
+
+        } else {
+            highscore = [];
+            // console.log(highScore);
+        }
+
+
+        //convert object into string
+        var highScoreJson = JSON.stringify(highScore);
+        localStorage.setItem("highscore", highScoreJson);
+        console.log(highScoreJson);
+        //window.location.replace("./highscore.html");
+
+    });
 };
 
-submitBtnEl.addEventListener("click", function () {
 
 
 
 
-})
+
 
 
 
