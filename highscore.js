@@ -12,6 +12,7 @@ var scores = localStorage.getItem("key");
 scores = JSON.parse(scores);
 
 if (scores !== null) {
+    scoreTableEl.classList.remove("d-none");
 
     for (var i = 0; i < scores.length; i++) {
 
@@ -37,8 +38,7 @@ goBackBtn.addEventListener("click", function () {
 
 
 clearScoreBtn.addEventListener("click", function () {
-    scores = "";
-    scoreTableEl.textContent = "";
-    //highScoreEl.style.display = "hide";
+    localStorage.clear();
+    scoreTableEl.classList.add("d-none");
 
 });

@@ -19,7 +19,7 @@ body{
 
 #high-score{
     font-size: 20px;
-    color: rgb(21, 255, 0);
+    color: rgb(29, 63, 42);
     list-style: none;
     text-align: left;
         
@@ -27,14 +27,17 @@ body{
 
 ol{
     margin-top: 10px;
+    cursor: pointer;
     
 }
+
 #quiz-div{
     
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     border-radius: 20px;
     width: 100%;
+    border: 2px black solid;
 }
 #submitBtn{
     margin-left: 200px;
@@ -49,5 +52,11 @@ ol{
 }
 #heading{
     font-size: 45px;
+}
+.answer{
+    border-top: 1px solid grey;
+    margin-top: 2px;
+    font-size: 18px;
+    font-style: italic;
 }
 

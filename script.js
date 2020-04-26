@@ -1,4 +1,4 @@
-// quiz question stored in an array
+// quiz questions stored in an array
 var questions = [
     {
         question: "What does CSS stand for?",
@@ -53,6 +53,7 @@ var currentQuestionIndex = 0;
 
 //event will trigger on start quiz button click and call render question and startTime functions
 startQuizButton.addEventListener("click", startTime);
+
 function startTime() {
 
     timeInterval = setInterval(function () {
@@ -60,42 +61,48 @@ function startTime() {
         timerEl.textContent = timeLeft;
         timeLeft--;
 
+        //call quizOver function if time is less than or equal to 0
         if (timeLeft <= 0) {
-            timerEl.textContent = "Time's up";
-            clearInterval(timeInterval);
+
             quizOver();
         }
 
     }, 1000);
+
+    //call renderQuestion function after starting the timer
     renderQuestions();
 }
 
-//renders questions and choices
+//render questions and choices
 function renderQuestions() {
-
+    //empty any previous values
     quizDivElement.innerHTML = "";
     olElement.innerHTML = "";
+
     //hide the mainDiv element
     mainDivElement.classList.add("d-none");
     //display the quizDiv element
     quizDivElement.classList.remove("d-none");
 
-
-    // loops through the questions
+    // loop through the questions using currentQuestionIndex variable
     var userQuestion = questions[currentQuestionIndex].question;
     var userChoice = questions[currentQuestionIndex].choice;
+
+    //question will be displayed in quizDivElement
     quizDivElement.textContent = "Question:" + " " + userQuestion;
-
-
 
     //loop over all the question choices
     userChoice.forEach(function (choices) {
 
+        //create liElement and display choices
         var liElement = document.createElement("li");
         liElement.textContent = choices;
+
+        //append li and ol to quizDivElement
         quizDivElement.appendChild(olElement);
         olElement.appendChild(liElement);
 
+        //adding event listener on a list-item click event and calling findCorrectAnswer function
         liElement.addEventListener("click", findCorrectAnswer);
 
     });
@@ -103,12 +110,14 @@ function renderQuestions() {
 
 function findCorrectAnswer(event) {
 
+    //finding which li is clicked
     var liclicked = event.target;
 
     if (liclicked.matches("li")) {
 
+        //creating a div element to show correct or wrong text
         var answerDivEl = document.createElement("div");
-        answerDivEl.classList.add("border-top", "mt-2", "text-muted", "border-dark");
+        answerDivEl.setAttribute("class", "answer")
 
         // correct answer
         if (liclicked.textContent == questions[currentQuestionIndex].correct) {
@@ -123,10 +132,11 @@ function findCorrectAnswer(event) {
         }
 
     };
-    currentQuestionIndex++;
+    currentQuestionIndex++; //increment the currentQuestionIndex
 
+    //call quizOver function if currentQuestionIndex is greater than questions.length
     if (currentQuestionIndex >= questions.length) {
-        // All done will append last page with user stats
+
         quizOver();
 
     } else {
@@ -143,28 +153,25 @@ function quizOver() {
     quizDivElement.innerHTML = "";
     timerEl.innerHTML = 0;
 
-    // Heading:
+    // create a heading element
     var headingEl = document.createElement("h1");
     headingEl.classList.add("text-center", "mt-2");
     headingEl.textContent = "Quiz is Over!"
 
     quizDivElement.appendChild(headingEl);
 
-    // Paragraph
+    // create a aragraph element
     var paragraphEl = document.createElement("p");
     //paragraphEl.setAttribute("id", "para1");
-
-
     quizDivElement.appendChild(paragraphEl);
 
     // Calculates time remaining and replaces it with score
     if (timeLeft >= 0) {
         timeRemaining = timeLeft;
-        //var paragraphEl2 = document.createElement("p");
+
         clearInterval(timeInterval);
         paragraphEl.textContent = "Your final score is: " + timeRemaining;
 
-        //quizDivElement.appendChild(paragraphEl2);
     }
 
     // Label
@@ -177,7 +184,6 @@ function quizOver() {
     // input
     var inputEl = document.createElement("input");
     inputEl.setAttribute("type", "text");
-    //inputEl.setAttribute("id", "inputEl");
     inputEl.classList.add("ml-3");
 
 
@@ -197,6 +203,7 @@ function quizOver() {
         var inputValue = inputEl.value;
         if (inputValue === "") {
             alert("enter your initials");
+            return;
         }
         //create an object to store initials and scores
         var scoreObject = {
@@ -216,9 +223,6 @@ function quizOver() {
         window.location.replace("./highscore.html");
 
     });
-
-
-
 };
 
 function getScores() {
