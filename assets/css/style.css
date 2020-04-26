@@ -1,18 +1,25 @@
+*{
+    box-sizing: border-box;
+}
+
 body{
-    background-image: url("../images/img4.jpg");
+    background-image: url("../images/img1.jpg");
     background-size: cover;
-  background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    background-position: center;
+    
 }
 
 #timer-div{
     position: relative;
-    margin-top: 10px;
     background-color: grey;
+    border: 1px solid darkgrey;
+    border-radius: 10px;
     height: 50px;
 }
 #timer{
     position: absolute;
-    right: 10px;
+    right: 15px;
     top:0;
     color: brown;
 }
@@ -24,11 +31,17 @@ body{
     text-align: left;
         
 }
+a{
+    margin-top: 12px;
+  }
+.container{
+    width: 52%;
+    height: auto;
+  }
 
 ol{
     margin-top: 10px;
-    cursor: pointer;
-    
+    cursor: pointer;   
 }
 
 #quiz-div{
@@ -37,6 +50,7 @@ ol{
     font-size: 20px;
     border-radius: 20px;
     width: 100%;
+    height: auto;
     border: 2px black solid;
 }
 #submitBtn{
@@ -50,6 +64,13 @@ ol{
     width: 100%;
     
 }
+.quiz-over{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    text-align: center;
+
+}
+
 #heading{
     font-size: 45px;
 }
@@ -60,3 +81,36 @@ ol{
     font-style: italic;
 }
 
+/*media query for devices with max screen size 768px*/
+@media screen and (max-width: 768px) {
+.container{
+    width: 100%;
+    height: auto;
+    }
+    
+#main-div{
+    width: 100%;
+    height: auto;
+            
+        }
+#heading{
+    font-size: 35px;
+        }
+     }
+
+/*media query for devices with max screen size 640px*/
+@media screen and (max-width: 640px) {
+.container{
+    width: 100%;
+    height: auto;
+}
+
+#main-div{
+    width: 100%;
+    height: auto;
+        
+    }
+#heading{
+    font-size: 35px;
+    }
+  }

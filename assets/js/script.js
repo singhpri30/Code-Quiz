@@ -155,14 +155,13 @@ function quizOver() {
 
     // create a heading element
     var headingEl = document.createElement("h1");
-    headingEl.classList.add("text-center", "mt-2");
+    headingEl.setAttribute("class", "quiz-over")
     headingEl.textContent = "Quiz is Over!"
 
     quizDivElement.appendChild(headingEl);
 
-    // create a aragraph element
+    // create a paragraph element
     var paragraphEl = document.createElement("p");
-    //paragraphEl.setAttribute("id", "para1");
     quizDivElement.appendChild(paragraphEl);
 
     // Calculates time remaining and replaces it with score
