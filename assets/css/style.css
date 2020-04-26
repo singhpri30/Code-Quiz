@@ -94,6 +94,7 @@ margin-left: 15px;
     font-style: italic;
 }
 
+
 /*media query for devices with max screen size 768px*/
 @media screen and (max-width: 768px) {
 .container{
@@ -109,7 +110,7 @@ margin-left: 15px;
 #heading{
     font-size: 35px;
         }
-     }
+}
 
 /*media query for devices with max screen size 640px*/
 @media screen and (max-width: 640px) {
