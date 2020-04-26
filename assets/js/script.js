@@ -156,7 +156,7 @@ function quizOver() {
     // create a heading element
     var headingEl = document.createElement("h1");
     headingEl.setAttribute("class", "quiz-over")
-    headingEl.textContent = "Quiz is Over!"
+    headingEl.textContent = "Quiz Over!"
 
     quizDivElement.appendChild(headingEl);
 
@@ -180,24 +180,22 @@ function quizOver() {
 
     quizDivElement.appendChild(labelEl);
 
-    // input
+    // create a input element
     var inputEl = document.createElement("input");
     inputEl.setAttribute("type", "text");
-    inputEl.classList.add("ml-3");
-
-
-
+    inputEl.setAttribute("class", "input-text");
     quizDivElement.appendChild(inputEl);
 
-    // submit
+    // create a submit button
     var submitBtnEl = document.createElement("button");
     submitBtnEl.setAttribute("type", "submit");
+    submitBtnEl.setAttribute("class", "submit-btn");
     submitBtnEl.classList.add("d-block", "btn", "btn-dark", "btn-lg", "mt-3");
     submitBtnEl.textContent = "Submit";
 
     quizDivElement.appendChild(submitBtnEl);
 
-
+    //on submit click an event is triggered 
     submitBtnEl.addEventListener("click", function () {
         var inputValue = inputEl.value;
         if (inputValue === "") {
