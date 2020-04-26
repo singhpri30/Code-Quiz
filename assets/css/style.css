@@ -3,10 +3,13 @@
 }
 
 body{
-    background-image: url("../images/img1.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+  background-image: url("../images/img4.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  width: 100%;
+  min-height: 100vh;
+    
     
 }
 
@@ -62,6 +65,7 @@ ol{
     border: 2px black solid;
     border-radius: 20px;
     width: 100%;
+    margin-top: 85px;
     
 }
 .quiz-over{
@@ -113,4 +117,4 @@ ol{
 #heading{
     font-size: 35px;
     }
-  }
+}
