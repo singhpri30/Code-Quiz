@@ -40,6 +40,8 @@ var mainDivElement = document.querySelector("#main-div");
 var quizDivElement = document.querySelector("#quiz-div");
 var timerEl = document.querySelector("#timer");
 var olElement = document.createElement("ol");
+var inputValue;
+var timeRemaining;
 
 
 var timeLeft = questions.length * 15;
@@ -157,12 +159,12 @@ function quizOver() {
 
     // Calculates time remaining and replaces it with score
     if (timeLeft >= 0) {
-        var timeRemaining = timeLeft;
-        var paragraphEl2 = document.createElement("p");
+        timeRemaining = timeLeft;
+        //var paragraphEl2 = document.createElement("p");
         clearInterval(timeInterval);
         paragraphEl.textContent = "Your final score is: " + timeRemaining;
 
-        quizDivElement.appendChild(paragraphEl2);
+        //quizDivElement.appendChild(paragraphEl2);
     }
 
     // Label
@@ -179,6 +181,7 @@ function quizOver() {
     inputEl.classList.add("ml-3");
 
 
+
     quizDivElement.appendChild(inputEl);
 
     // submit
@@ -188,42 +191,52 @@ function quizOver() {
     submitBtnEl.textContent = "Submit";
 
     quizDivElement.appendChild(submitBtnEl);
+
+
     submitBtnEl.addEventListener("click", function () {
         var inputValue = inputEl.value;
-
         if (inputValue === "") {
             alert("enter your initials");
         }
         //create an object to store initials and scores
-        var highScore = {
+        var scoreObject = {
             score: timeRemaining,
             initials: inputValue
+        };
 
-        }
+        var scores = getScores();
+        // push our scoreObject onto the existing scores array
+        scores.push(scoreObject);
+        // JSOn.strigify to turn our array into string
+        var scoreJSON = JSON.stringify(scores);
+        // store our new JSON string in local storage
+        localStorage.setItem("key", scoreJSON);
 
-
-        var highscore = localStorage.getItem("highscore");//getting a string form local storage
-        console.log(highScore);
-
-
-        if (highscore !== null) {
-            highscore1 = JSON.parse(highscore);//convert srting into a object
-            console.log("tt" + "   " + highscore1);
-
-        } else {
-            highscore = [];
-            // console.log(highScore);
-        }
-
-
-        //convert object into string
-        var highScoreJson = JSON.stringify(highScore);
-        localStorage.setItem("highscore", highScoreJson);
-        console.log(highScoreJson);
-        //window.location.replace("./highscore.html");
+        console.log(scores)
+        window.location.replace("./highscore.html");
 
     });
+
+
+
 };
+
+function getScores() {
+    //get all of the current scores from local storage
+    var scores = localStorage.getItem("key");
+    // JSOn.parse the value from local storage to get an array
+    if (scores) {
+
+        return JSON.parse(scores);
+    }
+    return [];
+
+};
+
+
+
+
+
 
 
 

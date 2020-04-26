@@ -1,6 +1,34 @@
-var highScoreEl = document.querySelector("#high-score");
+var scoreTableEl = document.querySelector("#score-table");
 var clearScoreBtn = document.querySelector("#clear-score");
 var goBackBtn = document.querySelector("#go-back");
+var tableBodyElement = document.querySelector('#score-body');
+
+
+
+
+//get all of the current scores from local storage
+
+var scores = localStorage.getItem("key");
+scores = JSON.parse(scores);
+
+if (scores !== null) {
+
+    for (var i = 0; i < scores.length; i++) {
+
+
+        var tableRowElement = document.createElement("tr");
+        var scoreTd = document.createElement("td");
+        scoreTd.textContent = scores[i].score;
+        var initialsTd = document.createElement("td");
+        initialsTd.textContent = scores[i].initials;
+
+        tableRowElement.append(scoreTd);
+        tableRowElement.append(initialsTd);
+
+        tableBodyElement.append(tableRowElement);
+
+    }
+}
 
 
 goBackBtn.addEventListener("click", function () {
@@ -9,27 +37,8 @@ goBackBtn.addEventListener("click", function () {
 
 
 clearScoreBtn.addEventListener("click", function () {
-
-    highScoreEl.textContent = "";
-    location.reload();
-
+    scores = "";
+    scoreTableEl.textContent = "";
+    //highScoreEl.style.display = "hide";
 
 });
-
-var highscore = localStorage.getItem("highscore");
-highscore = JSON.parse(highscore);//convert srting into a object
-// console.log(highscore);
-//highScoreEl.textContent = highscore.score + " " + highscore.initials;
-
-if (highscore !== null) {
-
-    for (var i = 0; i < highscore.length; i++) {
-
-        var liEl = document.createElement("li");
-
-        liEl.textContent = highscore[i].initials + " " + highscore[i].score;
-        highScoreEl.appendChild(liEl);
-
-
-    }
-};

@@ -7,19 +7,29 @@
     <title>High Scores</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/highscore.css" rel="stylesheet">
     <link href="assets/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container w-50">
 
-        <div id="main-div" class="jumbotron mt-5 text-center bg-info">
-            <h1 class="display-4">High Scores</h1>
-            <ui id="high-score"></ui>
-            <hr class="my-4">
-            <!--button to start quiz-->
+        <div id="score-div" class="jumbotron text-center">
+            <h1 id="heading" class="display-4">High Scores</h1>
+
+            <div id="score-table">
+                <table>
+                    <thead>
+                        <th>Score</th>
+                        <th>Initials</th>
+                    </thead>
+                    <tbody id="score-body"></tbody>
+                </table>
+            </div>
+            <br>
+            <!--button to clear score-->
             <button id="clear-score" type="button" class="btn btn-dark btn-lg ">Clear Highscore</button>
+            <!--button to go back to index page-->
             <button id="go-back" type="button" class="btn btn-dark btn-lg ">Go Back</button>
         </div>
 
